@@ -63,3 +63,7 @@ node scripts/validate-course.cjs examples/分卷示例_1-3.zhixing.json examples
 `Web/` 是离线应用界面和学习逻辑，`Sources/` 是 SwiftUI / WKWebView 原生文件接口，`Resources/` 含原生图标、隐私清单与 Info.plist。`docs/` 说明协议及完备生成提示词，`tests/` 覆盖导入、题库、分卷、更新、备份和错误拒绝。
 
 手机浏览器检查不能代替 iOS 真机测试。签名后的首次安装仍须核对文件导入、锁屏后保存、键盘、VoiceOver、刘海/手势区、iCloud 文件选择、分享备份与恢复。
+
+## 验证状态
+
+已完成 macOS/Xcode arm64 设备编译、16 项核心测试与手机视口检查；具体证据和未完成的真机项目见 [验证记录](docs/验证记录.md)。IPA 仍须重签后安装。

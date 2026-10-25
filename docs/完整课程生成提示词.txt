@@ -78,7 +78,7 @@ chapters = 1–300 个 {
   points: [{id,title,summary,explanation,analogy?,formula?,minutes,prerequisites,example:{prompt,steps,answer},pitfalls,sourceRefs,syllabusIds}]
 }
 questions = 完整独立题库数组，结构遵守第三部分。
-普通讲解、题干、解析、答案等单段不超过 12000 字符；formula 不超过 3000；单个公式最多 4096 字符。每卷最终合并后的课程文件最多 8 MiB、3000 个知识点、12000 道题；超出时按模块建立多个独立课程，每门写清其范围，不要静默删内容。
+普通讲解、题干、解析、答案等单段不超过 12000 字符；formula 不超过 3000；单个公式最多 4096 字符。每门最终合并后的课程文件最多 8 MiB、3000 个知识点、12000 道题、5000 处公式；超出时按模块建立多个独立课程，每门写清其范围，不要静默删内容。
 
 五、LaTeX 强制规范
 1. 所有数学公式使用 LaTeX，行内用 \\( ... \\)，独立公式用 \\[ ... \\]。此处展示的是 JSON 字符串转义后的形式：写入 JSON 文本时每个 LaTeX 反斜杠都须写成双反斜杠。例如实际 JSON 字段可写："formula":"I=\\frac{U}{R}"；"prompt":"求 \\(I\\) 的值"。
