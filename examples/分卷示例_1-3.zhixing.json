@@ -1,0 +1,550 @@
+{
+  "format": "zhixing-study-part",
+  "schemaVersion": 2,
+  "header": {
+    "format": "zhixing-study-pack",
+    "schemaVersion": 2,
+    "id": "circuits-foundations",
+    "revision": 3,
+    "title": "电路基础：把概念学扎实",
+    "summary": "限定六个直流电路基础知识点：电压、电流、欧姆定律、功率、串联和分压；含 30 道独立配套题和 6 道章节综合题。不是完整大学电路课程。",
+    "tags": [
+      "电子工程",
+      "入门",
+      "示例课程"
+    ],
+    "objectives": [
+      "区分电压、电流、电阻、功率的含义与单位。",
+      "计算理想线性电阻的电流及功率。",
+      "解释串联分压及负载改变输出的原因。"
+    ],
+    "mathFormat": "latex",
+    "scope": {
+      "title": "直流电路入门 · 六个知识点",
+      "boundary": "只覆盖下列锁定清单；不含交流、暂态、受控源、网孔/节点分析、戴维南等内容。",
+      "sources": [
+        {
+          "id": "src-demo",
+          "title": "自编电路基础教学示例",
+          "locator": "本文件六个知识点；未引用指定教材或真实页码"
+        }
+      ],
+      "syllabus": [
+        {
+          "id": "s-k-voltage",
+          "title": "电压：两点之间的电势差",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-voltage"
+          ]
+        },
+        {
+          "id": "s-k-current",
+          "title": "电流：电荷的定向流动",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-current"
+          ]
+        },
+        {
+          "id": "s-k-ohm",
+          "title": "欧姆定律：电压、电流和电阻",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-ohm"
+          ]
+        },
+        {
+          "id": "s-k-power",
+          "title": "功率：每秒转换多少电能",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-power"
+          ]
+        },
+        {
+          "id": "s-k-series",
+          "title": "串联电阻：电流相同，电压分配",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-series"
+          ]
+        },
+        {
+          "id": "s-k-divider",
+          "title": "电阻分压：从输入得到较低电压",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-divider"
+          ]
+        }
+      ],
+      "exclusions": [
+        {
+          "title": "完整电路课程的其余内容",
+          "reason": "本示例仅演示六个知识点的导入与覆盖检查，未声明覆盖整门电路课程"
+        }
+      ]
+    }
+  },
+  "partIndex": 1,
+  "totalParts": 3,
+  "chapters": [
+    {
+      "id": "ch-01",
+      "title": "建立电路直觉",
+      "summary": "先认识电势差和电荷流动。",
+      "points": [
+        {
+          "id": "k-voltage",
+          "title": "电压：两点之间的电势差",
+          "summary": "电压描述单位电荷在两点之间转移时对应的电能差，单位是伏特（V）。",
+          "explanation": "电压总是相对于另一个点而言。说“节点 A 的电压为 5 V”，通常省略了“相对于参考地”。\n\n电压的正负取决于测量方向。\\(U_{AB}=V_A-V_B\\)；交换两点，电压符号就会改变。参考地只是人为选定的零电势，不一定与大地相连。",
+          "analogy": "可以把电势差类比为水位差。水位差越大，推动水流的趋势通常越强；但实际流量还与管道阻力有关。这个类比不能替代电路计算。",
+          "formula": "U_{AB}=V_A-V_B",
+          "minutes": 5,
+          "prerequisites": [],
+          "example": {
+            "prompt": "A 点相对地为 5 V，B 点相对地为 2 V，\\(U_{AB}\\) 是多少？",
+            "steps": [
+              "按定义写出 \\(U_{AB}=V_A-V_B\\)。",
+              "代入数值：\\(5\\,\\mathrm{V}-2\\,\\mathrm{V}=3\\,\\mathrm{V}\\)。"
+            ],
+            "answer": "\\(U_{AB}=3\\,\\mathrm{V}\\)；反向 \\(U_{BA}=-3\\,\\mathrm{V}\\)。"
+          },
+          "pitfalls": [
+            "不能脱离参考点谈节点电压。",
+            "有电压不代表一定有持续电流，例如理想开路。"
+          ],
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "syllabusIds": [
+            "s-k-voltage"
+          ]
+        },
+        {
+          "id": "k-current",
+          "title": "电流：电荷的定向流动",
+          "summary": "电流是单位时间通过某截面的净电荷量，单位是安培（A）。",
+          "explanation": "约定电流的正方向是正电荷运动的方向。在金属导体中，自由电子的平均定向运动方向与约定电流方向相反。\n\n计算时可以先选定参考方向。如果求出的电流为负，表示实际方向与参考方向相反。稳态集中参数电路的节点处，流入电流之和等于流出电流之和。",
+          "analogy": "把电流类比为每秒流过管道截面的水量。电流描述流动快慢；电压描述两点的电势差，两者不是同一个物理量。",
+          "formula": "I_{\\mathrm{avg}}=\\frac{\\Delta Q}{\\Delta t},\\qquad 1\\,\\mathrm{A}=1\\,\\mathrm{C/s}",
+          "minutes": 5,
+          "prerequisites": [
+            "k-voltage"
+          ],
+          "example": {
+            "prompt": "2 秒内有 6 库仑净电荷通过某截面，平均电流是多少？",
+            "steps": [
+              "写出\\(I_{\\mathrm{avg}}=\\frac{\\Delta Q}{\\Delta t}\\)。",
+              "代入 \\(\\frac{6\\,\\mathrm{C}}{2\\,\\mathrm{s}}=3\\,\\mathrm{A}\\)。"
+            ],
+            "answer": "平均电流为 3 A。"
+          },
+          "pitfalls": [
+            "电流不是被元件“消耗掉”的物质。",
+            "电流负号表示相对参考方向，不代表计算一定出错。"
+          ],
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "syllabusIds": [
+            "s-k-current"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q-01",
+      "type": "single",
+      "pointIds": [
+        "k-voltage"
+      ],
+      "prompt": "A 点相对地为 8 V，B 点相对地为 3 V，\\(U_{AB}\\) 为多少？",
+      "answer": [
+        "B"
+      ],
+      "explanation": "\\(U_{AB}=V_A-V_B=(8-3)\\,\\mathrm{V}=5\\,\\mathrm{V}\\)。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "\\(11\\,\\mathrm{V}\\)"
+        },
+        {
+          "id": "B",
+          "text": "\\(5\\,\\mathrm{V}\\)"
+        },
+        {
+          "id": "C",
+          "text": "\\(-5\\,\\mathrm{V}\\)"
+        },
+        {
+          "id": "D",
+          "text": "\\(3\\,\\mathrm{V}\\)"
+        }
+      ],
+      "primaryPointId": "k-voltage",
+      "skill": "application",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "solutionSteps": [
+        "\\(U_{AB}=V_A-V_B=(8-3)\\,\\mathrm{V}=5\\,\\mathrm{V}\\)。"
+      ],
+      "optionExplanations": {
+        "A": "不符合题设。选项“\\(11\\,\\mathrm{V}\\)”应与以下关系核对：\\(U_{AB}=V_A-V_B=(8-3)\\,\\mathrm{V}=5\\,\\mathrm{V}\\)。",
+        "B": "正确。选项“\\(5\\,\\mathrm{V}\\)”应与以下关系核对：\\(U_{AB}=V_A-V_B=(8-3)\\,\\mathrm{V}=5\\,\\mathrm{V}\\)。",
+        "C": "不符合题设。选项“\\(-5\\,\\mathrm{V}\\)”应与以下关系核对：\\(U_{AB}=V_A-V_B=(8-3)\\,\\mathrm{V}=5\\,\\mathrm{V}\\)。",
+        "D": "不符合题设。选项“\\(3\\,\\mathrm{V}\\)”应与以下关系核对：\\(U_{AB}=V_A-V_B=(8-3)\\,\\mathrm{V}=5\\,\\mathrm{V}\\)。"
+      }
+    },
+    {
+      "id": "q-02",
+      "type": "true_false",
+      "pointIds": [
+        "k-voltage"
+      ],
+      "prompt": "只要两个端点之间有电压，就一定有持续电流流过。",
+      "answer": [
+        "B"
+      ],
+      "explanation": "理想开路可以有电压，但没有电流；电流还取决于是否存在通路。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "正确"
+        },
+        {
+          "id": "B",
+          "text": "错误"
+        }
+      ],
+      "primaryPointId": "k-voltage",
+      "skill": "misconception",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "solutionSteps": [
+        "理想开路可以有电压，但没有电流；电流还取决于是否存在通路。"
+      ],
+      "optionExplanations": {
+        "A": "不符合题设。选项“正确”应与以下关系核对：理想开路可以有电压，但没有电流；电流还取决于是否存在通路。",
+        "B": "正确。选项“错误”应与以下关系核对：理想开路可以有电压，但没有电流；电流还取决于是否存在通路。"
+      }
+    },
+    {
+      "id": "q-03",
+      "type": "single",
+      "pointIds": [
+        "k-current"
+      ],
+      "prompt": "4 秒内通过某截面的净电荷为 8 C，平均电流是多少？",
+      "answer": [
+        "B"
+      ],
+      "explanation": "平均电流 \\(I=\\frac{\\Delta Q}{\\Delta t}=\\frac{8}{4}\\,\\mathrm{A}=2\\,\\mathrm{A}\\)。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "\\(0.5\\,\\mathrm{A}\\)"
+        },
+        {
+          "id": "B",
+          "text": "\\(2\\,\\mathrm{A}\\)"
+        },
+        {
+          "id": "C",
+          "text": "\\(4\\,\\mathrm{A}\\)"
+        },
+        {
+          "id": "D",
+          "text": "\\(32\\,\\mathrm{A}\\)"
+        }
+      ],
+      "primaryPointId": "k-current",
+      "skill": "application",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "solutionSteps": [
+        "平均电流 \\(I=\\frac{\\Delta Q}{\\Delta t}=\\frac{8}{4}\\,\\mathrm{A}=2\\,\\mathrm{A}\\)。"
+      ],
+      "optionExplanations": {
+        "A": "不符合题设。选项“\\(0.5\\,\\mathrm{A}\\)”应与以下关系核对：平均电流 \\(I=\\frac{\\Delta Q}{\\Delta t}=\\frac{8}{4}\\,\\mathrm{A}=2\\,\\mathrm{A}\\)。",
+        "B": "正确。选项“\\(2\\,\\mathrm{A}\\)”应与以下关系核对：平均电流 \\(I=\\frac{\\Delta Q}{\\Delta t}=\\frac{8}{4}\\,\\mathrm{A}=2\\,\\mathrm{A}\\)。",
+        "C": "不符合题设。选项“\\(4\\,\\mathrm{A}\\)”应与以下关系核对：平均电流 \\(I=\\frac{\\Delta Q}{\\Delta t}=\\frac{8}{4}\\,\\mathrm{A}=2\\,\\mathrm{A}\\)。",
+        "D": "不符合题设。选项“\\(32\\,\\mathrm{A}\\)”应与以下关系核对：平均电流 \\(I=\\frac{\\Delta Q}{\\Delta t}=\\frac{8}{4}\\,\\mathrm{A}=2\\,\\mathrm{A}\\)。"
+      }
+    },
+    {
+      "id": "q-04",
+      "type": "multiple",
+      "pointIds": [
+        "k-current",
+        "k-voltage"
+      ],
+      "prompt": "下列说法哪些正确？",
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ],
+      "explanation": "A、B 是单位定义；金属中电子的平均定向运动方向与约定电流相反；参考方向可预先选择。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "电流单位是安培。"
+        },
+        {
+          "id": "B",
+          "text": "电压单位是伏特。"
+        },
+        {
+          "id": "C",
+          "text": "金属中电子定向运动方向与约定电流方向始终相同。"
+        },
+        {
+          "id": "D",
+          "text": "求得电流为负，可能只是实际方向与参考方向相反。"
+        }
+      ],
+      "primaryPointId": "k-current",
+      "skill": "misconception",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "solutionSteps": [
+        "A、B 是单位定义；金属中电子的平均定向运动方向与约定电流相反；参考方向可预先选择。"
+      ],
+      "optionExplanations": {
+        "A": "正确。选项“电流单位是安培。”应与以下关系核对：A、B 是单位定义；金属中电子的平均定向运动方向与约定电流相反；参考方向可预先选择。",
+        "B": "正确。选项“电压单位是伏特。”应与以下关系核对：A、B 是单位定义；金属中电子的平均定向运动方向与约定电流相反；参考方向可预先选择。",
+        "C": "不符合题设。选项“金属中电子定向运动方向与约定电流方向始终相同。”应与以下关系核对：A、B 是单位定义；金属中电子的平均定向运动方向与约定电流相反；参考方向可预先选择。",
+        "D": "正确。选项“求得电流为负，可能只是实际方向与参考方向相反。”应与以下关系核对：A、B 是单位定义；金属中电子的平均定向运动方向与约定电流相反；参考方向可预先选择。"
+      }
+    },
+    {
+      "id": "k-voltage-extra-1",
+      "type": "short",
+      "pointIds": [
+        "k-voltage"
+      ],
+      "primaryPointId": "k-voltage",
+      "skill": "recall",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 1,
+      "prompt": "说“节点 A 为 5 V”时，必须同时明确什么？",
+      "answer": "参考点。电压是两点的电势差，节点电压是相对于选定参考点的电势差。",
+      "rubric": [
+        "指出参考点",
+        "说明电势差的两点性"
+      ],
+      "explanation": "参考点。电压是两点的电势差，节点电压是相对于选定参考点的电势差。",
+      "solutionSteps": [
+        "指出参考点",
+        "说明电势差的两点性",
+        "参考点。电压是两点的电势差，节点电压是相对于选定参考点的电势差。"
+      ]
+    },
+    {
+      "id": "k-voltage-extra-2",
+      "type": "short",
+      "pointIds": [
+        "k-voltage"
+      ],
+      "primaryPointId": "k-voltage",
+      "skill": "recall",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 1,
+      "prompt": "写出端电压定义，并说明交换下标后的符号。",
+      "answer": "\\(U_{AB}=V_A-V_B\\)，\\(U_{BA}=-U_{AB}\\)。",
+      "rubric": [
+        "写出差值定义",
+        "写出反向符号"
+      ],
+      "explanation": "\\(U_{AB}=V_A-V_B\\)，\\(U_{BA}=-U_{AB}\\)。",
+      "solutionSteps": [
+        "写出差值定义",
+        "写出反向符号",
+        "\\(U_{AB}=V_A-V_B\\)，\\(U_{BA}=-U_{AB}\\)。"
+      ]
+    },
+    {
+      "id": "k-voltage-extra-3",
+      "type": "short",
+      "pointIds": [
+        "k-voltage"
+      ],
+      "primaryPointId": "k-voltage",
+      "skill": "transfer",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 2,
+      "prompt": "A、B 原相对参考点分别为 7 V、−1 V；改用 B 作零电势参考点后，A 的电压是多少？",
+      "answer": "端电压不随统一参考点平移改变。\\(U_{AB}=7-(-1)=8\\,\\mathrm{V}\\)，新参考下 A 为 8 V。",
+      "rubric": [
+        "识别相对电势差",
+        "正确处理负号",
+        "得出 8 V"
+      ],
+      "explanation": "端电压不随统一参考点平移改变。\\(U_{AB}=7-(-1)=8\\,\\mathrm{V}\\)，新参考下 A 为 8 V。",
+      "solutionSteps": [
+        "识别相对电势差",
+        "正确处理负号",
+        "得出 8 V",
+        "端电压不随统一参考点平移改变。\\(U_{AB}=7-(-1)=8\\,\\mathrm{V}\\)，新参考下 A 为 8 V。"
+      ]
+    },
+    {
+      "id": "k-current-extra-1",
+      "type": "short",
+      "pointIds": [
+        "k-current"
+      ],
+      "primaryPointId": "k-current",
+      "skill": "recall",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 1,
+      "prompt": "平均电流如何定义？给出单位之间的关系。",
+      "answer": "\\(I_{\\mathrm{avg}}=\\Delta Q/\\Delta t\\)，\\(1\\,\\mathrm{A}=1\\,\\mathrm{C/s}\\)。",
+      "rubric": [
+        "净电荷量除以时间",
+        "正确单位"
+      ],
+      "explanation": "\\(I_{\\mathrm{avg}}=\\Delta Q/\\Delta t\\)，\\(1\\,\\mathrm{A}=1\\,\\mathrm{C/s}\\)。",
+      "solutionSteps": [
+        "净电荷量除以时间",
+        "正确单位",
+        "\\(I_{\\mathrm{avg}}=\\Delta Q/\\Delta t\\)，\\(1\\,\\mathrm{A}=1\\,\\mathrm{C/s}\\)。"
+      ]
+    },
+    {
+      "id": "k-current-extra-2",
+      "type": "short",
+      "pointIds": [
+        "k-current"
+      ],
+      "primaryPointId": "k-current",
+      "skill": "recall",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 1,
+      "prompt": "金属导体中电子的平均定向运动方向与约定电流方向有什么关系？",
+      "answer": "两者相反。约定电流的方向为正电荷运动的方向，而电子带负电。",
+      "rubric": [
+        "指出相反",
+        "解释电子为负电荷"
+      ],
+      "explanation": "两者相反。约定电流的方向为正电荷运动的方向，而电子带负电。",
+      "solutionSteps": [
+        "指出相反",
+        "解释电子为负电荷",
+        "两者相反。约定电流的方向为正电荷运动的方向，而电子带负电。"
+      ]
+    },
+    {
+      "id": "k-current-extra-3",
+      "type": "short",
+      "pointIds": [
+        "k-current"
+      ],
+      "primaryPointId": "k-current",
+      "skill": "transfer",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 2,
+      "prompt": "某节点稳态有 2 mA、3 mA 流入，另有 1 mA 和未知电流流出。未知支路流出电流是多少？",
+      "answer": "稳态节点电流守恒：\\(2+3=1+I\\)，故 \\(I=4\\,\\mathrm{mA}\\)。",
+      "rubric": [
+        "写出流入等于流出",
+        "正确求出 4 mA"
+      ],
+      "explanation": "稳态节点电流守恒：\\(2+3=1+I\\)，故 \\(I=4\\,\\mathrm{mA}\\)。",
+      "solutionSteps": [
+        "写出流入等于流出",
+        "正确求出 4 mA",
+        "稳态节点电流守恒：\\(2+3=1+I\\)，故 \\(I=4\\,\\mathrm{mA}\\)。"
+      ]
+    },
+    {
+      "id": "synthesis-1",
+      "type": "short",
+      "primaryPointId": "k-voltage",
+      "pointIds": [
+        "k-voltage",
+        "k-current"
+      ],
+      "skill": "synthesis",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 3,
+      "prompt": "测得 A 相对地为 6 V、B 为 2 V；一理想支路中 2 秒通过 4 mC 电荷。求 U_AB 和平均电流，并区分它们的含义。",
+      "answer": "\\(U_{AB}=6-2=4\\,\\mathrm{V}\\)；\\(I=4\\,\\mathrm{mC}/2\\,\\mathrm{s}=2\\,\\mathrm{mA}\\)。前者是电势差，后者是电荷流动速率。",
+      "rubric": [
+        "明确题设与电路条件",
+        "写出关系式并正确代入",
+        "核对单位和结果"
+      ],
+      "explanation": "\\(U_{AB}=6-2=4\\,\\mathrm{V}\\)；\\(I=4\\,\\mathrm{mC}/2\\,\\mathrm{s}=2\\,\\mathrm{mA}\\)。前者是电势差，后者是电荷流动速率。",
+      "solutionSteps": [
+        "先判断是否开路、是否带负载，确定适用的模型。",
+        "\\(U_{AB}=6-2=4\\,\\mathrm{V}\\)；\\(I=4\\,\\mathrm{mC}/2\\,\\mathrm{s}=2\\,\\mathrm{mA}\\)。前者是电势差，后者是电荷流动速率。"
+      ]
+    },
+    {
+      "id": "synthesis-2",
+      "type": "short",
+      "primaryPointId": "k-voltage",
+      "pointIds": [
+        "k-voltage",
+        "k-current"
+      ],
+      "skill": "synthesis",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 3,
+      "prompt": "端点有 9 V 电压但支路开路，是否有持续电流？如果后来实测有 3 mA 通过，1 秒净电荷量是多少？",
+      "answer": "理想开路没有持续电流。有 3 mA 时 \\(Q=It=3\\,\\mathrm{mC}\\)。电压本身不能单独确定电流。",
+      "rubric": [
+        "明确题设与电路条件",
+        "写出关系式并正确代入",
+        "核对单位和结果"
+      ],
+      "explanation": "理想开路没有持续电流。有 3 mA 时 \\(Q=It=3\\,\\mathrm{mC}\\)。电压本身不能单独确定电流。",
+      "solutionSteps": [
+        "先判断是否开路、是否带负载，确定适用的模型。",
+        "理想开路没有持续电流。有 3 mA 时 \\(Q=It=3\\,\\mathrm{mC}\\)。电压本身不能单独确定电流。"
+      ]
+    }
+  ]
+}

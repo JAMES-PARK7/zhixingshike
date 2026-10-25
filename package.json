@@ -1,0 +1,1 @@
+{"name":"zhixing-ios","version":"2.0.0","private":true,"scripts":{"test":"node --test tests/*.test.js","validate":"node scripts/validate-course.cjs","build:ipa":"bash scripts/build-ios.sh unsigned"}}

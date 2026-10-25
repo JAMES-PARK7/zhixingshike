@@ -1,0 +1,539 @@
+{
+  "format": "zhixing-study-part",
+  "schemaVersion": 2,
+  "header": {
+    "format": "zhixing-study-pack",
+    "schemaVersion": 2,
+    "id": "circuits-foundations",
+    "revision": 3,
+    "title": "电路基础：把概念学扎实",
+    "summary": "限定六个直流电路基础知识点：电压、电流、欧姆定律、功率、串联和分压；含 30 道独立配套题和 6 道章节综合题。不是完整大学电路课程。",
+    "tags": [
+      "电子工程",
+      "入门",
+      "示例课程"
+    ],
+    "objectives": [
+      "区分电压、电流、电阻、功率的含义与单位。",
+      "计算理想线性电阻的电流及功率。",
+      "解释串联分压及负载改变输出的原因。"
+    ],
+    "mathFormat": "latex",
+    "scope": {
+      "title": "直流电路入门 · 六个知识点",
+      "boundary": "只覆盖下列锁定清单；不含交流、暂态、受控源、网孔/节点分析、戴维南等内容。",
+      "sources": [
+        {
+          "id": "src-demo",
+          "title": "自编电路基础教学示例",
+          "locator": "本文件六个知识点；未引用指定教材或真实页码"
+        }
+      ],
+      "syllabus": [
+        {
+          "id": "s-k-voltage",
+          "title": "电压：两点之间的电势差",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-voltage"
+          ]
+        },
+        {
+          "id": "s-k-current",
+          "title": "电流：电荷的定向流动",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-current"
+          ]
+        },
+        {
+          "id": "s-k-ohm",
+          "title": "欧姆定律：电压、电流和电阻",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-ohm"
+          ]
+        },
+        {
+          "id": "s-k-power",
+          "title": "功率：每秒转换多少电能",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-power"
+          ]
+        },
+        {
+          "id": "s-k-series",
+          "title": "串联电阻：电流相同，电压分配",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-series"
+          ]
+        },
+        {
+          "id": "s-k-divider",
+          "title": "电阻分压：从输入得到较低电压",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-divider"
+          ]
+        }
+      ],
+      "exclusions": [
+        {
+          "title": "完整电路课程的其余内容",
+          "reason": "本示例仅演示六个知识点的导入与覆盖检查，未声明覆盖整门电路课程"
+        }
+      ]
+    }
+  },
+  "partIndex": 2,
+  "totalParts": 3,
+  "chapters": [
+    {
+      "id": "ch-02",
+      "title": "用公式算出结果",
+      "summary": "把电阻、电流和能量联系起来。",
+      "points": [
+        {
+          "id": "k-ohm",
+          "title": "欧姆定律：电压、电流和电阻",
+          "summary": "对理想线性电阻，在关联参考方向下有 \\(U=IR\\)。",
+          "explanation": "理想线性电阻的电压与电流成正比，比例系数是电阻 R，单位是欧姆（Ω）。关联参考方向指电流参考方向流入电压标记的正端。\n\n\\(U=IR\\) 适用于这里讨论的线性电阻模型。二极管等非线性器件不能在所有工作点直接用一个固定电阻描述。实际电阻的阻值也会受温度和容差影响。",
+          "analogy": "同样的水位差下，更细或更难通过的管道流量更小。对应地，在电压相同时，电阻越大，电流越小。",
+          "formula": "U=IR,\\qquad I=\\frac{U}{R},\\qquad R=\\frac{U}{I}",
+          "minutes": 5,
+          "prerequisites": [
+            "k-voltage",
+            "k-current"
+          ],
+          "example": {
+            "prompt": "一个 2 kΩ 理想电阻两端加 6 V，流过它的电流是多少？",
+            "steps": [
+              "先统一单位：\\(2\\,\\mathrm{k}\\Omega=2000\\,\\Omega\\)。",
+              "\\(I=\\frac{6\\,\\mathrm{V}}{2000\\,\\Omega}=0.003\\,\\mathrm{A}\\)。",
+              "换算：\\(0.003\\,\\mathrm{A}=3\\,\\mathrm{mA}\\)。"
+            ],
+            "answer": "电流为 3 mA。"
+          },
+          "pitfalls": [
+            "先统一 kΩ、Ω、mA、A 等单位。",
+            "不能把固定电阻形式的欧姆定律直接套给所有器件。"
+          ],
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "syllabusIds": [
+            "s-k-ohm"
+          ]
+        },
+        {
+          "id": "k-power",
+          "title": "功率：每秒转换多少电能",
+          "summary": "功率表示能量转换的速率；对电阻，可用 \\(P=UI=I^2R=\\frac{U^2}{R}\\)。",
+          "explanation": "功率单位是瓦特（W），能量单位是焦耳（J）。在功率恒定的情况下，经过时间 t，转换的能量为 \\(E=Pt\\)。\n\n按关联参考方向，\\(P=UI\\) 为正表示元件吸收功率。理想电阻把电能转为热能。选实际电阻时还要考虑额定功率及具体工况；本例只做理想计算。",
+          "analogy": "把功率理解成“每秒花掉多少能量”，能量则是“一共花了多少”。同样功率运行更久，总能量就更多。",
+          "formula": "P=UI=I^2R=\\frac{U^2}{R},\\qquad E=Pt",
+          "minutes": 5,
+          "prerequisites": [
+            "k-ohm"
+          ],
+          "example": {
+            "prompt": "100 Ω 电阻两端为 5 V，它的功率是多少？",
+            "steps": [
+              "使用 \\(P=\\frac{U^2}{R}\\)。",
+              "\\(P=\\frac{5^2}{100}\\,\\mathrm{W}=0.25\\,\\mathrm{W}\\)。"
+            ],
+            "answer": "功率为 0.25 W。"
+          },
+          "pitfalls": [
+            "功率与能量不同，W 与 J 不能混用。",
+            "使用 \\(P=\\frac{U^2}{R}\\) 时，U 必须是这个电阻两端的电压。"
+          ],
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "syllabusIds": [
+            "s-k-power"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q-05",
+      "type": "single",
+      "pointIds": [
+        "k-ohm"
+      ],
+      "prompt": "3 kΩ 理想线性电阻两端为 9 V，流过它的电流为多少？",
+      "answer": [
+        "C"
+      ],
+      "explanation": "\\(I=\\frac{9}{3000}\\,\\mathrm{A}=0.003\\,\\mathrm{A}=3\\,\\mathrm{mA}\\)。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "\\(3\\,\\mathrm{A}\\)"
+        },
+        {
+          "id": "B",
+          "text": "\\(27\\,\\mathrm{mA}\\)"
+        },
+        {
+          "id": "C",
+          "text": "\\(3\\,\\mathrm{mA}\\)"
+        },
+        {
+          "id": "D",
+          "text": "\\(0.333\\,\\mathrm{mA}\\)"
+        }
+      ],
+      "primaryPointId": "k-ohm",
+      "skill": "application",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "solutionSteps": [
+        "\\(I=\\frac{9}{3000}\\,\\mathrm{A}=0.003\\,\\mathrm{A}=3\\,\\mathrm{mA}\\)。"
+      ],
+      "optionExplanations": {
+        "A": "不符合题设。选项“\\(3\\,\\mathrm{A}\\)”应与以下关系核对：\\(I=\\frac{9}{3000}\\,\\mathrm{A}=0.003\\,\\mathrm{A}=3\\,\\mathrm{mA}\\)。",
+        "B": "不符合题设。选项“\\(27\\,\\mathrm{mA}\\)”应与以下关系核对：\\(I=\\frac{9}{3000}\\,\\mathrm{A}=0.003\\,\\mathrm{A}=3\\,\\mathrm{mA}\\)。",
+        "C": "正确。选项“\\(3\\,\\mathrm{mA}\\)”应与以下关系核对：\\(I=\\frac{9}{3000}\\,\\mathrm{A}=0.003\\,\\mathrm{A}=3\\,\\mathrm{mA}\\)。",
+        "D": "不符合题设。选项“\\(0.333\\,\\mathrm{mA}\\)”应与以下关系核对：\\(I=\\frac{9}{3000}\\,\\mathrm{A}=0.003\\,\\mathrm{A}=3\\,\\mathrm{mA}\\)。"
+      }
+    },
+    {
+      "id": "q-06",
+      "type": "short",
+      "pointIds": [
+        "k-ohm"
+      ],
+      "prompt": "为什么不能把 \\(U=IR\\) 中的 R 视为所有器件在所有工作条件下都不变的常数？",
+      "answer": "固定 R 的欧姆定律针对理想线性电阻模型。非线性器件的电压与电流关系通常不是固定比例；实际元件参数还会受温度等条件影响。",
+      "explanation": "先说明适用模型，再指出非线性或温度影响等例外。",
+      "difficulty": 2,
+      "rubric": [
+        "指出固定阻值形式适用于线性电阻模型。",
+        "指出二极管等非线性器件或温度变化会使固定比例假设不适用。"
+      ],
+      "primaryPointId": "k-ohm",
+      "skill": "misconception",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "solutionSteps": [
+        "先说明适用模型，再指出非线性或温度影响等例外。"
+      ]
+    },
+    {
+      "id": "q-07",
+      "type": "single",
+      "pointIds": [
+        "k-power"
+      ],
+      "prompt": "一个电阻两端电压为 10 V，电流为 20 mA，吸收功率为多少？",
+      "answer": [
+        "A"
+      ],
+      "explanation": "\\(20\\,\\mathrm{mA}=0.02\\,\\mathrm{A}\\)，\\(P=UI=(10\\times0.02)\\,\\mathrm{W}=0.2\\,\\mathrm{W}\\)。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "\\(0.2\\,\\mathrm{W}\\)"
+        },
+        {
+          "id": "B",
+          "text": "\\(2\\,\\mathrm{W}\\)"
+        },
+        {
+          "id": "C",
+          "text": "\\(200\\,\\mathrm{W}\\)"
+        },
+        {
+          "id": "D",
+          "text": "\\(0.002\\,\\mathrm{W}\\)"
+        }
+      ],
+      "primaryPointId": "k-power",
+      "skill": "application",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "solutionSteps": [
+        "\\(20\\,\\mathrm{mA}=0.02\\,\\mathrm{A}\\)，\\(P=UI=(10\\times0.02)\\,\\mathrm{W}=0.2\\,\\mathrm{W}\\)。"
+      ],
+      "optionExplanations": {
+        "A": "正确。选项“\\(0.2\\,\\mathrm{W}\\)”应与以下关系核对：\\(20\\,\\mathrm{mA}=0.02\\,\\mathrm{A}\\)，\\(P=UI=(10\\times0.02)\\,\\mathrm{W}=0.2\\,\\mathrm{W}\\)。",
+        "B": "不符合题设。选项“\\(2\\,\\mathrm{W}\\)”应与以下关系核对：\\(20\\,\\mathrm{mA}=0.02\\,\\mathrm{A}\\)，\\(P=UI=(10\\times0.02)\\,\\mathrm{W}=0.2\\,\\mathrm{W}\\)。",
+        "C": "不符合题设。选项“\\(200\\,\\mathrm{W}\\)”应与以下关系核对：\\(20\\,\\mathrm{mA}=0.02\\,\\mathrm{A}\\)，\\(P=UI=(10\\times0.02)\\,\\mathrm{W}=0.2\\,\\mathrm{W}\\)。",
+        "D": "不符合题设。选项“\\(0.002\\,\\mathrm{W}\\)”应与以下关系核对：\\(20\\,\\mathrm{mA}=0.02\\,\\mathrm{A}\\)，\\(P=UI=(10\\times0.02)\\,\\mathrm{W}=0.2\\,\\mathrm{W}\\)。"
+      }
+    },
+    {
+      "id": "q-08",
+      "type": "true_false",
+      "pointIds": [
+        "k-power"
+      ],
+      "prompt": "在功率恒定时，运行时间加倍，转换的总能量也加倍。",
+      "answer": [
+        "A"
+      ],
+      "explanation": "恒定功率下 \\(E=Pt\\)，因此能量与时间成正比。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "正确"
+        },
+        {
+          "id": "B",
+          "text": "错误"
+        }
+      ],
+      "primaryPointId": "k-power",
+      "skill": "misconception",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "solutionSteps": [
+        "恒定功率下 \\(E=Pt\\)，因此能量与时间成正比。"
+      ],
+      "optionExplanations": {
+        "A": "正确。选项“正确”应与以下关系核对：恒定功率下 \\(E=Pt\\)，因此能量与时间成正比。",
+        "B": "不符合题设。选项“错误”应与以下关系核对：恒定功率下 \\(E=Pt\\)，因此能量与时间成正比。"
+      }
+    },
+    {
+      "id": "k-ohm-extra-1",
+      "type": "short",
+      "pointIds": [
+        "k-ohm"
+      ],
+      "primaryPointId": "k-ohm",
+      "skill": "recall",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 1,
+      "prompt": "固定电阻的欧姆定律适用于什么元件模型？",
+      "answer": "固定工作条件下的理想线性电阻模型，电压与电流成正比，比例系数为电阻 R。",
+      "rubric": [
+        "理想线性电阻",
+        "固定条件",
+        "电压电流成正比"
+      ],
+      "explanation": "固定工作条件下的理想线性电阻模型，电压与电流成正比，比例系数为电阻 R。",
+      "solutionSteps": [
+        "理想线性电阻",
+        "固定条件",
+        "电压电流成正比",
+        "固定工作条件下的理想线性电阻模型，电压与电流成正比，比例系数为电阻 R。"
+      ]
+    },
+    {
+      "id": "k-ohm-extra-2",
+      "type": "short",
+      "pointIds": [
+        "k-ohm"
+      ],
+      "primaryPointId": "k-ohm",
+      "skill": "recall",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 1,
+      "prompt": "请从欧姆定律写出求电流和电阻的关系式，并说明除法的限制。",
+      "answer": "\\(I=U/R\\) 要求 \\(R\\ne0\\)；\\(R=U/I\\) 要求 \\(I\\ne0\\)。求得的比值不代表非线性器件在所有条件下电阻都不变。",
+      "rubric": [
+        "两条式子",
+        "分母非零",
+        "模型适用范围"
+      ],
+      "explanation": "\\(I=U/R\\) 要求 \\(R\\ne0\\)；\\(R=U/I\\) 要求 \\(I\\ne0\\)。求得的比值不代表非线性器件在所有条件下电阻都不变。",
+      "solutionSteps": [
+        "两条式子",
+        "分母非零",
+        "模型适用范围",
+        "\\(I=U/R\\) 要求 \\(R\\ne0\\)；\\(R=U/I\\) 要求 \\(I\\ne0\\)。求得的比值不代表非线性器件在所有条件下电阻都不变。"
+      ]
+    },
+    {
+      "id": "k-ohm-extra-3",
+      "type": "short",
+      "pointIds": [
+        "k-ohm"
+      ],
+      "primaryPointId": "k-ohm",
+      "skill": "transfer",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 2,
+      "prompt": "理想线性电阻温度不变，电压从 2 V 增加到 6 V，电流从 1 mA 变为多少？",
+      "answer": "\\(R=2\\,\\mathrm{V}/1\\,\\mathrm{mA}=2\\,\\mathrm{k}\\Omega\\)。新电流 \\(6/2000=3\\,\\mathrm{mA}\\)。",
+      "rubric": [
+        "保持 R 不变",
+        "正确单位换算",
+        "得出 3 mA"
+      ],
+      "explanation": "\\(R=2\\,\\mathrm{V}/1\\,\\mathrm{mA}=2\\,\\mathrm{k}\\Omega\\)。新电流 \\(6/2000=3\\,\\mathrm{mA}\\)。",
+      "solutionSteps": [
+        "保持 R 不变",
+        "正确单位换算",
+        "得出 3 mA",
+        "\\(R=2\\,\\mathrm{V}/1\\,\\mathrm{mA}=2\\,\\mathrm{k}\\Omega\\)。新电流 \\(6/2000=3\\,\\mathrm{mA}\\)。"
+      ]
+    },
+    {
+      "id": "k-power-extra-1",
+      "type": "short",
+      "pointIds": [
+        "k-power"
+      ],
+      "primaryPointId": "k-power",
+      "skill": "recall",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 1,
+      "prompt": "功率和能量分别描述什么？单位是什么？",
+      "answer": "功率描述单位时间转换的能量，单位 W；能量描述转换的总量，单位 J。恒功率时 E=Pt。",
+      "rubric": [
+        "区分速率和总量",
+        "W 与 J",
+        "恒功率条件"
+      ],
+      "explanation": "功率描述单位时间转换的能量，单位 W；能量描述转换的总量，单位 J。恒功率时 E=Pt。",
+      "solutionSteps": [
+        "区分速率和总量",
+        "W 与 J",
+        "恒功率条件",
+        "功率描述单位时间转换的能量，单位 W；能量描述转换的总量，单位 J。恒功率时 E=Pt。"
+      ]
+    },
+    {
+      "id": "k-power-extra-2",
+      "type": "short",
+      "pointIds": [
+        "k-power"
+      ],
+      "primaryPointId": "k-power",
+      "skill": "recall",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 1,
+      "prompt": "写出理想电阻的三种等价功率表达式，并说明采用吸收功率参考方向。",
+      "answer": "电流流入电压正端时，\\(P=UI=I^2R=U^2/R\\) 为吸收功率；后两式来自线性电阻关系。",
+      "rubric": [
+        "三式正确",
+        "吸收参考方向",
+        "电阻模型"
+      ],
+      "explanation": "电流流入电压正端时，\\(P=UI=I^2R=U^2/R\\) 为吸收功率；后两式来自线性电阻关系。",
+      "solutionSteps": [
+        "三式正确",
+        "吸收参考方向",
+        "电阻模型",
+        "电流流入电压正端时，\\(P=UI=I^2R=U^2/R\\) 为吸收功率；后两式来自线性电阻关系。"
+      ]
+    },
+    {
+      "id": "k-power-extra-3",
+      "type": "short",
+      "pointIds": [
+        "k-power"
+      ],
+      "primaryPointId": "k-power",
+      "skill": "transfer",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 2,
+      "prompt": "一个理想电阻接恒压源，电阻值减为原来一半，吸收功率怎样变化？",
+      "answer": "恒压条件下 \\(P=U^2/R\\)，R 减半则 P 加倍。不能在电压固定时误用“电流不变”的假设。",
+      "rubric": [
+        "识别恒压",
+        "选择 U²/R",
+        "得出加倍"
+      ],
+      "explanation": "恒压条件下 \\(P=U^2/R\\)，R 减半则 P 加倍。不能在电压固定时误用“电流不变”的假设。",
+      "solutionSteps": [
+        "识别恒压",
+        "选择 U²/R",
+        "得出加倍",
+        "恒压条件下 \\(P=U^2/R\\)，R 减半则 P 加倍。不能在电压固定时误用“电流不变”的假设。"
+      ]
+    },
+    {
+      "id": "synthesis-3",
+      "type": "short",
+      "primaryPointId": "k-ohm",
+      "pointIds": [
+        "k-ohm",
+        "k-power"
+      ],
+      "skill": "synthesis",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 3,
+      "prompt": "2 kΩ 理想线性电阻接 10 V，求电流及吸收功率。",
+      "answer": "\\(I=10/2000=5\\,\\mathrm{mA}\\)；\\(P=UI=10\\times0.005=0.05\\,\\mathrm{W}\\)。",
+      "rubric": [
+        "明确题设与电路条件",
+        "写出关系式并正确代入",
+        "核对单位和结果"
+      ],
+      "explanation": "\\(I=10/2000=5\\,\\mathrm{mA}\\)；\\(P=UI=10\\times0.005=0.05\\,\\mathrm{W}\\)。",
+      "solutionSteps": [
+        "先判断是否开路、是否带负载，确定适用的模型。",
+        "\\(I=10/2000=5\\,\\mathrm{mA}\\)；\\(P=UI=10\\times0.005=0.05\\,\\mathrm{W}\\)。"
+      ]
+    },
+    {
+      "id": "synthesis-4",
+      "type": "short",
+      "primaryPointId": "k-ohm",
+      "pointIds": [
+        "k-ohm",
+        "k-power"
+      ],
+      "skill": "synthesis",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 3,
+      "prompt": "4 kΩ 电阻接 8 V 理想电源运行 10 秒，求电流、功率和能量。",
+      "answer": "\\(I=2\\,\\mathrm{mA}\\)，\\(P=8\\times0.002=0.016\\,\\mathrm{W}\\)，\\(E=Pt=0.16\\,\\mathrm{J}\\)。",
+      "rubric": [
+        "明确题设与电路条件",
+        "写出关系式并正确代入",
+        "核对单位和结果"
+      ],
+      "explanation": "\\(I=2\\,\\mathrm{mA}\\)，\\(P=8\\times0.002=0.016\\,\\mathrm{W}\\)，\\(E=Pt=0.16\\,\\mathrm{J}\\)。",
+      "solutionSteps": [
+        "先判断是否开路、是否带负载，确定适用的模型。",
+        "\\(I=2\\,\\mathrm{mA}\\)，\\(P=8\\times0.002=0.016\\,\\mathrm{W}\\)，\\(E=Pt=0.16\\,\\mathrm{J}\\)。"
+      ]
+    }
+  ]
+}
