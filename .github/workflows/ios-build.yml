@@ -1,0 +1,35 @@
+name: iOS IPA Build
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: ios-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build-ios:
+    runs-on: macos-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Show toolchain
+        run: xcodebuild -version
+      - name: Build device IPA without signing credentials
+        run: bash scripts/build-ios.sh unsigned
+      - name: Upload IPA and checksums
+        uses: actions/upload-artifact@v4
+        with:
+          name: ZhixingShike-iOS-unsigned
+          path: |
+            build/ZhixingShike-unsigned.ipa
+            build/SHA256SUMS.txt
+            build/binary-info.txt
+          if-no-files-found: error
+          retention-days: 14

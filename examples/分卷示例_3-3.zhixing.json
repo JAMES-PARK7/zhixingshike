@@ -1,0 +1,551 @@
+{
+  "format": "zhixing-study-part",
+  "schemaVersion": 2,
+  "header": {
+    "format": "zhixing-study-pack",
+    "schemaVersion": 2,
+    "id": "circuits-foundations",
+    "revision": 3,
+    "title": "电路基础：把概念学扎实",
+    "summary": "限定六个直流电路基础知识点：电压、电流、欧姆定律、功率、串联和分压；含 30 道独立配套题和 6 道章节综合题。不是完整大学电路课程。",
+    "tags": [
+      "电子工程",
+      "入门",
+      "示例课程"
+    ],
+    "objectives": [
+      "区分电压、电流、电阻、功率的含义与单位。",
+      "计算理想线性电阻的电流及功率。",
+      "解释串联分压及负载改变输出的原因。"
+    ],
+    "mathFormat": "latex",
+    "scope": {
+      "title": "直流电路入门 · 六个知识点",
+      "boundary": "只覆盖下列锁定清单；不含交流、暂态、受控源、网孔/节点分析、戴维南等内容。",
+      "sources": [
+        {
+          "id": "src-demo",
+          "title": "自编电路基础教学示例",
+          "locator": "本文件六个知识点；未引用指定教材或真实页码"
+        }
+      ],
+      "syllabus": [
+        {
+          "id": "s-k-voltage",
+          "title": "电压：两点之间的电势差",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-voltage"
+          ]
+        },
+        {
+          "id": "s-k-current",
+          "title": "电流：电荷的定向流动",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-current"
+          ]
+        },
+        {
+          "id": "s-k-ohm",
+          "title": "欧姆定律：电压、电流和电阻",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-ohm"
+          ]
+        },
+        {
+          "id": "s-k-power",
+          "title": "功率：每秒转换多少电能",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-power"
+          ]
+        },
+        {
+          "id": "s-k-series",
+          "title": "串联电阻：电流相同，电压分配",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-series"
+          ]
+        },
+        {
+          "id": "s-k-divider",
+          "title": "电阻分压：从输入得到较低电压",
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "pointIds": [
+            "k-divider"
+          ]
+        }
+      ],
+      "exclusions": [
+        {
+          "title": "完整电路课程的其余内容",
+          "reason": "本示例仅演示六个知识点的导入与覆盖检查，未声明覆盖整门电路课程"
+        }
+      ]
+    }
+  },
+  "partIndex": 3,
+  "totalParts": 3,
+  "chapters": [
+    {
+      "id": "ch-03",
+      "title": "从串联走向分压",
+      "summary": "理解电压怎样分配，以及公式的适用前提。",
+      "points": [
+        {
+          "id": "k-series",
+          "title": "串联电阻：电流相同，电压分配",
+          "summary": "两个电阻直接串联且中间没有分支时，电流相同，总电阻为两者之和。",
+          "explanation": "串联电路只有一条电流路径，中间节点没有额外支路，因此各电阻的电流相同。电源提供的总电压等于各串联电阻电压降之和。\n\n因为每个电阻两端 \\(U_i=IR_i\\)，且 I 相同，所以较大的电阻承担较大的电压降。这个结论依赖于串联且没有额外分支的前提。",
+          "analogy": "几段粗细不同的管道接成一条通路，每段每秒通过的水量相同，但每段产生的压力降可以不同。",
+          "formula": "R_{\\mathrm{eq}}=R_1+R_2,\\qquad I=\\frac{U}{R_1+R_2}",
+          "minutes": 5,
+          "prerequisites": [
+            "k-ohm"
+          ],
+          "example": {
+            "prompt": "1 kΩ 与 2 kΩ 电阻串联接在 9 V 理想电压源上，各自电压是多少？",
+            "steps": [
+              "总电阻为 3 kΩ。",
+              "电流为 \\(\\frac{9\\,\\mathrm{V}}{3\\,\\mathrm{k}\\Omega}=3\\,\\mathrm{mA}\\)。",
+              "1 kΩ 上为 3 V，2 kΩ 上为 6 V；两者相加为 9 V。"
+            ],
+            "answer": "1 kΩ 上 3 V，2 kΩ 上 6 V。"
+          },
+          "pitfalls": [
+            "串联电路电流相同不表示各电阻电压相同。",
+            "一旦中间接入负载，必须重新检查串联关系。"
+          ],
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "syllabusIds": [
+            "s-k-series"
+          ]
+        },
+        {
+          "id": "k-divider",
+          "title": "电阻分压：从输入得到较低电压",
+          "summary": "输出无负载时，下端电阻 \\(R_2\\) 上的电压为 \\(U_{\\mathrm{out}}=U_{\\mathrm{in}}\\frac{R_2}{R_1+R_2}\\)。",
+          "explanation": "把 \\(R_1\\) 接在输入与输出节点之间，把 \\(R_2\\) 接在输出节点与地之间。在输入为理想电压源、输出开路且电阻理想的条件下，可直接使用分压公式。\n\n如果输出再接一个到地的负载电阻 \\(R_L\\)，下端等效电阻变成 \\(R_2\\) 与 \\(R_L\\) 并联，输出电压通常下降。分压电路不是能带任意负载的稳压电源。",
+          "analogy": "把输入电压看作一整块蛋糕，串联电阻按阻值比例分配。输出一旦接入负载，原来的分配比例也会改变。",
+          "formula": "U_{\\mathrm{out}}=U_{\\mathrm{in}}\\frac{R_2}{R_1+R_2}",
+          "minutes": 5,
+          "prerequisites": [
+            "k-series"
+          ],
+          "example": {
+            "prompt": "输入 12 V，\\(R_1=3\\,\\mathrm{k}\\Omega\\)，\\(R_2=1\\,\\mathrm{k}\\Omega\\)，输出无负载，\\(U_{\\mathrm{out}}\\) 是多少？",
+            "steps": [
+              "确认输出取自 \\(R_2\\) 两端且无负载。",
+              "\\(U_{\\mathrm{out}}=12\\times\\frac{1}{3+1}\\,\\mathrm{V}\\)。",
+              "计算得 \\(U_{\\mathrm{out}}=3\\,\\mathrm{V}\\)。"
+            ],
+            "answer": "输出电压为 3 V。"
+          },
+          "pitfalls": [
+            "先看输出取自哪个电阻两端。",
+            "接入负载后不能直接照搬无负载公式。"
+          ],
+          "sourceRefs": [
+            "src-demo"
+          ],
+          "syllabusIds": [
+            "s-k-divider"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q-09",
+      "type": "single",
+      "pointIds": [
+        "k-series"
+      ],
+      "prompt": "2 kΩ 与 4 kΩ 电阻直接串联在 12 V 理想电源上，中间无分支，电流是多少？",
+      "answer": [
+        "B"
+      ],
+      "explanation": "总电阻为 6 kΩ，\\(I=\\frac{12}{6000}\\,\\mathrm{A}=2\\,\\mathrm{mA}\\)。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "\\(1\\,\\mathrm{mA}\\)"
+        },
+        {
+          "id": "B",
+          "text": "\\(2\\,\\mathrm{mA}\\)"
+        },
+        {
+          "id": "C",
+          "text": "\\(3\\,\\mathrm{mA}\\)"
+        },
+        {
+          "id": "D",
+          "text": "\\(6\\,\\mathrm{mA}\\)"
+        }
+      ],
+      "primaryPointId": "k-series",
+      "skill": "application",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "solutionSteps": [
+        "总电阻为 6 kΩ，\\(I=\\frac{12}{6000}\\,\\mathrm{A}=2\\,\\mathrm{mA}\\)。"
+      ],
+      "optionExplanations": {
+        "A": "不符合题设。选项“\\(1\\,\\mathrm{mA}\\)”应与以下关系核对：总电阻为 6 kΩ，\\(I=\\frac{12}{6000}\\,\\mathrm{A}=2\\,\\mathrm{mA}\\)。",
+        "B": "正确。选项“\\(2\\,\\mathrm{mA}\\)”应与以下关系核对：总电阻为 6 kΩ，\\(I=\\frac{12}{6000}\\,\\mathrm{A}=2\\,\\mathrm{mA}\\)。",
+        "C": "不符合题设。选项“\\(3\\,\\mathrm{mA}\\)”应与以下关系核对：总电阻为 6 kΩ，\\(I=\\frac{12}{6000}\\,\\mathrm{A}=2\\,\\mathrm{mA}\\)。",
+        "D": "不符合题设。选项“\\(6\\,\\mathrm{mA}\\)”应与以下关系核对：总电阻为 6 kΩ，\\(I=\\frac{12}{6000}\\,\\mathrm{A}=2\\,\\mathrm{mA}\\)。"
+      }
+    },
+    {
+      "id": "q-10",
+      "type": "multiple",
+      "pointIds": [
+        "k-series"
+      ],
+      "prompt": "对中间无分支的两个理想串联电阻，哪些说法正确？",
+      "answer": [
+        "A",
+        "C",
+        "D"
+      ],
+      "explanation": "串联同流，电阻相加；\\(U_i=IR_i\\)，因此阻值越大电压降越大。只有阻值相同才等分电压。",
+      "difficulty": 2,
+      "options": [
+        {
+          "id": "A",
+          "text": "流过两电阻的电流相同。"
+        },
+        {
+          "id": "B",
+          "text": "两电阻的电压总是相同。"
+        },
+        {
+          "id": "C",
+          "text": "总电阻为两电阻之和。"
+        },
+        {
+          "id": "D",
+          "text": "阻值较大的电阻具有较大的电压降。"
+        }
+      ],
+      "primaryPointId": "k-series",
+      "skill": "misconception",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "solutionSteps": [
+        "串联同流，电阻相加；\\(U_i=IR_i\\)，因此阻值越大电压降越大。只有阻值相同才等分电压。"
+      ],
+      "optionExplanations": {
+        "A": "正确。选项“流过两电阻的电流相同。”应与以下关系核对：串联同流，电阻相加；\\(U_i=IR_i\\)，因此阻值越大电压降越大。只有阻值相同才等分电压。",
+        "B": "不符合题设。选项“两电阻的电压总是相同。”应与以下关系核对：串联同流，电阻相加；\\(U_i=IR_i\\)，因此阻值越大电压降越大。只有阻值相同才等分电压。",
+        "C": "正确。选项“总电阻为两电阻之和。”应与以下关系核对：串联同流，电阻相加；\\(U_i=IR_i\\)，因此阻值越大电压降越大。只有阻值相同才等分电压。",
+        "D": "正确。选项“阻值较大的电阻具有较大的电压降。”应与以下关系核对：串联同流，电阻相加；\\(U_i=IR_i\\)，因此阻值越大电压降越大。只有阻值相同才等分电压。"
+      }
+    },
+    {
+      "id": "q-11",
+      "type": "single",
+      "pointIds": [
+        "k-divider"
+      ],
+      "prompt": "输入 10 V，上端 \\(R_1=4\\,\\mathrm{k}\\Omega\\)，下端 \\(R_2=1\\,\\mathrm{k}\\Omega\\)，输出取自 \\(R_2\\) 两端且无负载，输出是多少？",
+      "answer": [
+        "D"
+      ],
+      "explanation": "\\(U_{\\mathrm{out}}=10\\times\\frac{1}{4+1}\\,\\mathrm{V}=2\\,\\mathrm{V}\\)。注意分子是下端电阻 \\(R_2\\)。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "\\(8\\,\\mathrm{V}\\)"
+        },
+        {
+          "id": "B",
+          "text": "\\(5\\,\\mathrm{V}\\)"
+        },
+        {
+          "id": "C",
+          "text": "\\(2.5\\,\\mathrm{V}\\)"
+        },
+        {
+          "id": "D",
+          "text": "\\(2\\,\\mathrm{V}\\)"
+        }
+      ],
+      "primaryPointId": "k-divider",
+      "skill": "application",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "solutionSteps": [
+        "\\(U_{\\mathrm{out}}=10\\times\\frac{1}{4+1}\\,\\mathrm{V}=2\\,\\mathrm{V}\\)。注意分子是下端电阻 \\(R_2\\)。"
+      ],
+      "optionExplanations": {
+        "A": "不符合题设。选项“\\(8\\,\\mathrm{V}\\)”应与以下关系核对：\\(U_{\\mathrm{out}}=10\\times\\frac{1}{4+1}\\,\\mathrm{V}=2\\,\\mathrm{V}\\)。注意分子是下端电阻 \\(R_2\\)。",
+        "B": "不符合题设。选项“\\(5\\,\\mathrm{V}\\)”应与以下关系核对：\\(U_{\\mathrm{out}}=10\\times\\frac{1}{4+1}\\,\\mathrm{V}=2\\,\\mathrm{V}\\)。注意分子是下端电阻 \\(R_2\\)。",
+        "C": "不符合题设。选项“\\(2.5\\,\\mathrm{V}\\)”应与以下关系核对：\\(U_{\\mathrm{out}}=10\\times\\frac{1}{4+1}\\,\\mathrm{V}=2\\,\\mathrm{V}\\)。注意分子是下端电阻 \\(R_2\\)。",
+        "D": "正确。选项“\\(2\\,\\mathrm{V}\\)”应与以下关系核对：\\(U_{\\mathrm{out}}=10\\times\\frac{1}{4+1}\\,\\mathrm{V}=2\\,\\mathrm{V}\\)。注意分子是下端电阻 \\(R_2\\)。"
+      }
+    },
+    {
+      "id": "q-12",
+      "type": "short",
+      "pointIds": [
+        "k-divider",
+        "k-series"
+      ],
+      "prompt": "在电阻分压输出端与地之间接入负载电阻后，为什么输出可能比无负载时更低？",
+      "answer": "负载电阻与下端电阻并联，使下端等效电阻减小；在理想输入电压源条件下，重新分压得到的输出电压降低。",
+      "explanation": "说明并联改变了下端等效电阻，然后把变化与分压比例联系起来。",
+      "difficulty": 2,
+      "rubric": [
+        "指出负载与下端电阻并联。",
+        "指出下端等效电阻减小。",
+        "在理想输入电压源条件下，分压比例减小，输出电压下降。"
+      ],
+      "primaryPointId": "k-divider",
+      "skill": "misconception",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "solutionSteps": [
+        "说明并联改变了下端等效电阻，然后把变化与分压比例联系起来。"
+      ]
+    },
+    {
+      "id": "k-series-extra-1",
+      "type": "short",
+      "pointIds": [
+        "k-series"
+      ],
+      "primaryPointId": "k-series",
+      "skill": "recall",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 1,
+      "prompt": "两个电阻串联并且中间没有分支时，哪一电学量相同？为什么？",
+      "answer": "电流相同。稳态节点处电荷不持续积累，中间又无分流支路，流入与流出电流相等。",
+      "rubric": [
+        "电流相同",
+        "节点守恒",
+        "无分支条件"
+      ],
+      "explanation": "电流相同。稳态节点处电荷不持续积累，中间又无分流支路，流入与流出电流相等。",
+      "solutionSteps": [
+        "电流相同",
+        "节点守恒",
+        "无分支条件",
+        "电流相同。稳态节点处电荷不持续积累，中间又无分流支路，流入与流出电流相等。"
+      ]
+    },
+    {
+      "id": "k-series-extra-2",
+      "type": "short",
+      "pointIds": [
+        "k-series"
+      ],
+      "primaryPointId": "k-series",
+      "skill": "recall",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 1,
+      "prompt": "两电阻串联的等效电阻以及各自电压如何求？",
+      "answer": "\\(R_{\\mathrm{eq}}=R_1+R_2\\)；先求公共电流 \\(I\\)，再求 \\(U_1=IR_1\\)、\\(U_2=IR_2\\)。",
+      "rubric": [
+        "电阻相加",
+        "公共电流",
+        "各自压降"
+      ],
+      "explanation": "\\(R_{\\mathrm{eq}}=R_1+R_2\\)；先求公共电流 \\(I\\)，再求 \\(U_1=IR_1\\)、\\(U_2=IR_2\\)。",
+      "solutionSteps": [
+        "电阻相加",
+        "公共电流",
+        "各自压降",
+        "\\(R_{\\mathrm{eq}}=R_1+R_2\\)；先求公共电流 \\(I\\)，再求 \\(U_1=IR_1\\)、\\(U_2=IR_2\\)。"
+      ]
+    },
+    {
+      "id": "k-series-extra-3",
+      "type": "short",
+      "pointIds": [
+        "k-series"
+      ],
+      "primaryPointId": "k-series",
+      "skill": "transfer",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 2,
+      "prompt": "2 kΩ 与 3 kΩ 直接串联接 10 V 电源。若把 3 kΩ 换为 8 kΩ，原 2 kΩ 的电压从多少变为多少？",
+      "answer": "原电流 \\(10/5000=2\\,\\mathrm{mA}\\)，2 kΩ 压降为 4 V；更换后电流 \\(10/10000=1\\,\\mathrm{mA}\\)，压降为 2 V。",
+      "rubric": [
+        "重新计算总电阻",
+        "两次电流正确",
+        "4 V 降为 2 V"
+      ],
+      "explanation": "原电流 \\(10/5000=2\\,\\mathrm{mA}\\)，2 kΩ 压降为 4 V；更换后电流 \\(10/10000=1\\,\\mathrm{mA}\\)，压降为 2 V。",
+      "solutionSteps": [
+        "重新计算总电阻",
+        "两次电流正确",
+        "4 V 降为 2 V",
+        "原电流 \\(10/5000=2\\,\\mathrm{mA}\\)，2 kΩ 压降为 4 V；更换后电流 \\(10/10000=1\\,\\mathrm{mA}\\)，压降为 2 V。"
+      ]
+    },
+    {
+      "id": "k-divider-extra-1",
+      "type": "short",
+      "pointIds": [
+        "k-divider"
+      ],
+      "primaryPointId": "k-divider",
+      "skill": "recall",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 1,
+      "prompt": "无负载电阻分压公式是什么，输出取在哪个电阻两端？",
+      "answer": "若输出取下端 \\(R_2\\) 两端，\\(U_{out}=U_{in}R_2/(R_1+R_2)\\)；要求输入为理想电压源且输出无负载。",
+      "rubric": [
+        "公式",
+        "取下端电阻",
+        "无负载等条件"
+      ],
+      "explanation": "若输出取下端 \\(R_2\\) 两端，\\(U_{out}=U_{in}R_2/(R_1+R_2)\\)；要求输入为理想电压源且输出无负载。",
+      "solutionSteps": [
+        "公式",
+        "取下端电阻",
+        "无负载等条件",
+        "若输出取下端 \\(R_2\\) 两端，\\(U_{out}=U_{in}R_2/(R_1+R_2)\\)；要求输入为理想电压源且输出无负载。"
+      ]
+    },
+    {
+      "id": "k-divider-extra-2",
+      "type": "short",
+      "pointIds": [
+        "k-divider"
+      ],
+      "primaryPointId": "k-divider",
+      "skill": "recall",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 1,
+      "prompt": "分压输出端接一个有限负载时，下端等效电阻如何计算？",
+      "answer": "\\(R_{\\mathrm{lower}}=R_2\\parallel R_L=R_2R_L/(R_2+R_L)\\)。再把此等效电阻代入分压公式。",
+      "rubric": [
+        "并联关系",
+        "重新分压"
+      ],
+      "explanation": "\\(R_{\\mathrm{lower}}=R_2\\parallel R_L=R_2R_L/(R_2+R_L)\\)。再把此等效电阻代入分压公式。",
+      "solutionSteps": [
+        "并联关系",
+        "重新分压",
+        "\\(R_{\\mathrm{lower}}=R_2\\parallel R_L=R_2R_L/(R_2+R_L)\\)。再把此等效电阻代入分压公式。"
+      ]
+    },
+    {
+      "id": "k-divider-extra-3",
+      "type": "short",
+      "pointIds": [
+        "k-divider"
+      ],
+      "primaryPointId": "k-divider",
+      "skill": "transfer",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 2,
+      "prompt": "6 V 理想电源，R₁=R₂=1 kΩ。在输出与地之间接 1 kΩ 负载后，输出是多少？",
+      "answer": "下端 \\(1\\,\\mathrm{k}\\Omega\\parallel1\\,\\mathrm{k}\\Omega=0.5\\,\\mathrm{k}\\Omega\\)。输出 \\(6\\times0.5/(1+0.5)=2\\,\\mathrm{V}\\)，小于空载 3 V。",
+      "rubric": [
+        "下端并联 0.5 kΩ",
+        "得到 2 V",
+        "与空载比较"
+      ],
+      "explanation": "下端 \\(1\\,\\mathrm{k}\\Omega\\parallel1\\,\\mathrm{k}\\Omega=0.5\\,\\mathrm{k}\\Omega\\)。输出 \\(6\\times0.5/(1+0.5)=2\\,\\mathrm{V}\\)，小于空载 3 V。",
+      "solutionSteps": [
+        "下端并联 0.5 kΩ",
+        "得到 2 V",
+        "与空载比较",
+        "下端 \\(1\\,\\mathrm{k}\\Omega\\parallel1\\,\\mathrm{k}\\Omega=0.5\\,\\mathrm{k}\\Omega\\)。输出 \\(6\\times0.5/(1+0.5)=2\\,\\mathrm{V}\\)，小于空载 3 V。"
+      ]
+    },
+    {
+      "id": "synthesis-5",
+      "type": "short",
+      "primaryPointId": "k-series",
+      "pointIds": [
+        "k-series",
+        "k-divider"
+      ],
+      "skill": "synthesis",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 3,
+      "prompt": "9 V 理想电源上串联 R₁=2 kΩ、R₂=1 kΩ，空载取 R₂ 两端输出。求总电流及输出电压。",
+      "answer": "\\(I=9/(2000+1000)=3\\,\\mathrm{mA}\\)，\\(U_{out}=IR_2=3\\,\\mathrm{V}\\)。",
+      "rubric": [
+        "明确题设与电路条件",
+        "写出关系式并正确代入",
+        "核对单位和结果"
+      ],
+      "explanation": "\\(I=9/(2000+1000)=3\\,\\mathrm{mA}\\)，\\(U_{out}=IR_2=3\\,\\mathrm{V}\\)。",
+      "solutionSteps": [
+        "先判断是否开路、是否带负载，确定适用的模型。",
+        "\\(I=9/(2000+1000)=3\\,\\mathrm{mA}\\)，\\(U_{out}=IR_2=3\\,\\mathrm{V}\\)。"
+      ]
+    },
+    {
+      "id": "synthesis-6",
+      "type": "short",
+      "primaryPointId": "k-series",
+      "pointIds": [
+        "k-series",
+        "k-divider"
+      ],
+      "skill": "synthesis",
+      "sourceRefs": [
+        "src-demo"
+      ],
+      "difficulty": 3,
+      "prompt": "上题给输出并联 1 kΩ 负载后，总电流与输出电压分别变为多少？",
+      "answer": "下端并联为 0.5 kΩ，总电阻 2.5 kΩ。\\(I=9/2500=3.6\\,\\mathrm{mA}\\)，\\(U_{out}=0.0036\\times500=1.8\\,\\mathrm{V}\\)。",
+      "rubric": [
+        "明确题设与电路条件",
+        "写出关系式并正确代入",
+        "核对单位和结果"
+      ],
+      "explanation": "下端并联为 0.5 kΩ，总电阻 2.5 kΩ。\\(I=9/2500=3.6\\,\\mathrm{mA}\\)，\\(U_{out}=0.0036\\times500=1.8\\,\\mathrm{V}\\)。",
+      "solutionSteps": [
+        "先判断是否开路、是否带负载，确定适用的模型。",
+        "下端并联为 0.5 kΩ，总电阻 2.5 kΩ。\\(I=9/2500=3.6\\,\\mathrm{mA}\\)，\\(U_{out}=0.0036\\times500=1.8\\,\\mathrm{V}\\)。"
+      ]
+    }
+  ]
+}

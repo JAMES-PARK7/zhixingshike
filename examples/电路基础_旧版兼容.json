@@ -1,0 +1,521 @@
+{
+  "format": "zhixing-study-pack",
+  "schemaVersion": 1,
+  "id": "circuits-foundations",
+  "revision": 2,
+  "title": "电路基础：从电压到分压",
+  "summary": "用 6 个知识点建立直流电路的基本直觉，再通过 12 道题检查理解。示例采用理想元件与明确的电路条件。",
+  "tags": [
+    "电子工程",
+    "入门",
+    "示例课程"
+  ],
+  "objectives": [
+    "区分电压、电流、电阻、功率的含义与单位。",
+    "计算理想线性电阻的电流及功率。",
+    "解释串联分压及负载改变输出的原因。"
+  ],
+  "chapters": [
+    {
+      "id": "ch-01",
+      "title": "建立电路直觉",
+      "summary": "先认识电势差和电荷流动。",
+      "points": [
+        {
+          "id": "k-voltage",
+          "title": "电压：两点之间的电势差",
+          "summary": "电压描述单位电荷在两点之间转移时对应的电能差，单位是伏特（V）。",
+          "explanation": "电压总是相对于另一个点而言。说“节点 A 的电压为 5 V”，通常省略了“相对于参考地”。\n\n电压的正负取决于测量方向。\\(U_{AB}=V_A-V_B\\)；交换两点，电压符号就会改变。参考地只是人为选定的零电势，不一定与大地相连。",
+          "analogy": "可以把电势差类比为水位差。水位差越大，推动水流的趋势通常越强；但实际流量还与管道阻力有关。这个类比不能替代电路计算。",
+          "formula": "U_{AB}=V_A-V_B",
+          "minutes": 5,
+          "prerequisites": [],
+          "example": {
+            "prompt": "A 点相对地为 5 V，B 点相对地为 2 V，\\(U_{AB}\\) 是多少？",
+            "steps": [
+              "按定义写出 \\(U_{AB}=V_A-V_B\\)。",
+              "代入数值：\\(5\\,\\mathrm{V}-2\\,\\mathrm{V}=3\\,\\mathrm{V}\\)。"
+            ],
+            "answer": "\\(U_{AB}=3\\,\\mathrm{V}\\)；反向 \\(U_{BA}=-3\\,\\mathrm{V}\\)。"
+          },
+          "pitfalls": [
+            "不能脱离参考点谈节点电压。",
+            "有电压不代表一定有持续电流，例如理想开路。"
+          ]
+        },
+        {
+          "id": "k-current",
+          "title": "电流：电荷的定向流动",
+          "summary": "电流是单位时间通过某截面的净电荷量，单位是安培（A）。",
+          "explanation": "约定电流的正方向是正电荷运动的方向。在金属导体中，自由电子的平均定向运动方向与约定电流方向相反。\n\n计算时可以先选定参考方向。如果求出的电流为负，表示实际方向与参考方向相反。稳态集中参数电路的节点处，流入电流之和等于流出电流之和。",
+          "analogy": "把电流类比为每秒流过管道截面的水量。电流描述流动快慢；电压描述两点的电势差，两者不是同一个物理量。",
+          "formula": "I_{\\mathrm{avg}}=\\frac{\\Delta Q}{\\Delta t},\\qquad 1\\,\\mathrm{A}=1\\,\\mathrm{C/s}",
+          "minutes": 5,
+          "prerequisites": [
+            "k-voltage"
+          ],
+          "example": {
+            "prompt": "2 秒内有 6 库仑净电荷通过某截面，平均电流是多少？",
+            "steps": [
+              "写出\\(I_{\\mathrm{avg}}=\\frac{\\Delta Q}{\\Delta t}\\)。",
+              "代入 \\(\\frac{6\\,\\mathrm{C}}{2\\,\\mathrm{s}}=3\\,\\mathrm{A}\\)。"
+            ],
+            "answer": "平均电流为 3 A。"
+          },
+          "pitfalls": [
+            "电流不是被元件“消耗掉”的物质。",
+            "电流负号表示相对参考方向，不代表计算一定出错。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-02",
+      "title": "用公式算出结果",
+      "summary": "把电阻、电流和能量联系起来。",
+      "points": [
+        {
+          "id": "k-ohm",
+          "title": "欧姆定律：电压、电流和电阻",
+          "summary": "对理想线性电阻，在关联参考方向下有 \\(U=IR\\)。",
+          "explanation": "理想线性电阻的电压与电流成正比，比例系数是电阻 R，单位是欧姆（Ω）。关联参考方向指电流参考方向流入电压标记的正端。\n\n\\(U=IR\\) 适用于这里讨论的线性电阻模型。二极管等非线性器件不能在所有工作点直接用一个固定电阻描述。实际电阻的阻值也会受温度和容差影响。",
+          "analogy": "同样的水位差下，更细或更难通过的管道流量更小。对应地，在电压相同时，电阻越大，电流越小。",
+          "formula": "U=IR,\\qquad I=\\frac{U}{R},\\qquad R=\\frac{U}{I}",
+          "minutes": 5,
+          "prerequisites": [
+            "k-voltage",
+            "k-current"
+          ],
+          "example": {
+            "prompt": "一个 2 kΩ 理想电阻两端加 6 V，流过它的电流是多少？",
+            "steps": [
+              "先统一单位：\\(2\\,\\mathrm{k}\\Omega=2000\\,\\Omega\\)。",
+              "\\(I=\\frac{6\\,\\mathrm{V}}{2000\\,\\Omega}=0.003\\,\\mathrm{A}\\)。",
+              "换算：\\(0.003\\,\\mathrm{A}=3\\,\\mathrm{mA}\\)。"
+            ],
+            "answer": "电流为 3 mA。"
+          },
+          "pitfalls": [
+            "先统一 kΩ、Ω、mA、A 等单位。",
+            "不能把固定电阻形式的欧姆定律直接套给所有器件。"
+          ]
+        },
+        {
+          "id": "k-power",
+          "title": "功率：每秒转换多少电能",
+          "summary": "功率表示能量转换的速率；对电阻，可用 \\(P=UI=I^2R=\\frac{U^2}{R}\\)。",
+          "explanation": "功率单位是瓦特（W），能量单位是焦耳（J）。在功率恒定的情况下，经过时间 t，转换的能量为 \\(E=Pt\\)。\n\n按关联参考方向，\\(P=UI\\) 为正表示元件吸收功率。理想电阻把电能转为热能。选实际电阻时还要考虑额定功率及具体工况；本例只做理想计算。",
+          "analogy": "把功率理解成“每秒花掉多少能量”，能量则是“一共花了多少”。同样功率运行更久，总能量就更多。",
+          "formula": "P=UI=I^2R=\\frac{U^2}{R},\\qquad E=Pt",
+          "minutes": 5,
+          "prerequisites": [
+            "k-ohm"
+          ],
+          "example": {
+            "prompt": "100 Ω 电阻两端为 5 V，它的功率是多少？",
+            "steps": [
+              "使用 \\(P=\\frac{U^2}{R}\\)。",
+              "\\(P=\\frac{5^2}{100}\\,\\mathrm{W}=0.25\\,\\mathrm{W}\\)。"
+            ],
+            "answer": "功率为 0.25 W。"
+          },
+          "pitfalls": [
+            "功率与能量不同，W 与 J 不能混用。",
+            "使用 \\(P=\\frac{U^2}{R}\\) 时，U 必须是这个电阻两端的电压。"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ch-03",
+      "title": "从串联走向分压",
+      "summary": "理解电压怎样分配，以及公式的适用前提。",
+      "points": [
+        {
+          "id": "k-series",
+          "title": "串联电阻：电流相同，电压分配",
+          "summary": "两个电阻直接串联且中间没有分支时，电流相同，总电阻为两者之和。",
+          "explanation": "串联电路只有一条电流路径，中间节点没有额外支路，因此各电阻的电流相同。电源提供的总电压等于各串联电阻电压降之和。\n\n因为每个电阻两端 \\(U_i=IR_i\\)，且 I 相同，所以较大的电阻承担较大的电压降。这个结论依赖于串联且没有额外分支的前提。",
+          "analogy": "几段粗细不同的管道接成一条通路，每段每秒通过的水量相同，但每段产生的压力降可以不同。",
+          "formula": "R_{\\mathrm{eq}}=R_1+R_2,\\qquad I=\\frac{U}{R_1+R_2}",
+          "minutes": 5,
+          "prerequisites": [
+            "k-ohm"
+          ],
+          "example": {
+            "prompt": "1 kΩ 与 2 kΩ 电阻串联接在 9 V 理想电压源上，各自电压是多少？",
+            "steps": [
+              "总电阻为 3 kΩ。",
+              "电流为 \\(\\frac{9\\,\\mathrm{V}}{3\\,\\mathrm{k}\\Omega}=3\\,\\mathrm{mA}\\)。",
+              "1 kΩ 上为 3 V，2 kΩ 上为 6 V；两者相加为 9 V。"
+            ],
+            "answer": "1 kΩ 上 3 V，2 kΩ 上 6 V。"
+          },
+          "pitfalls": [
+            "串联电路电流相同不表示各电阻电压相同。",
+            "一旦中间接入负载，必须重新检查串联关系。"
+          ]
+        },
+        {
+          "id": "k-divider",
+          "title": "电阻分压：从输入得到较低电压",
+          "summary": "输出无负载时，下端电阻 \\(R_2\\) 上的电压为 \\(U_{\\mathrm{out}}=U_{\\mathrm{in}}\\frac{R_2}{R_1+R_2}\\)。",
+          "explanation": "把 \\(R_1\\) 接在输入与输出节点之间，把 \\(R_2\\) 接在输出节点与地之间。在输入为理想电压源、输出开路且电阻理想的条件下，可直接使用分压公式。\n\n如果输出再接一个到地的负载电阻 \\(R_L\\)，下端等效电阻变成 \\(R_2\\) 与 \\(R_L\\) 并联，输出电压通常下降。分压电路不是能带任意负载的稳压电源。",
+          "analogy": "把输入电压看作一整块蛋糕，串联电阻按阻值比例分配。输出一旦接入负载，原来的分配比例也会改变。",
+          "formula": "U_{\\mathrm{out}}=U_{\\mathrm{in}}\\frac{R_2}{R_1+R_2}",
+          "minutes": 5,
+          "prerequisites": [
+            "k-series"
+          ],
+          "example": {
+            "prompt": "输入 12 V，\\(R_1=3\\,\\mathrm{k}\\Omega\\)，\\(R_2=1\\,\\mathrm{k}\\Omega\\)，输出无负载，\\(U_{\\mathrm{out}}\\) 是多少？",
+            "steps": [
+              "确认输出取自 \\(R_2\\) 两端且无负载。",
+              "\\(U_{\\mathrm{out}}=12\\times\\frac{1}{3+1}\\,\\mathrm{V}\\)。",
+              "计算得 \\(U_{\\mathrm{out}}=3\\,\\mathrm{V}\\)。"
+            ],
+            "answer": "输出电压为 3 V。"
+          },
+          "pitfalls": [
+            "先看输出取自哪个电阻两端。",
+            "接入负载后不能直接照搬无负载公式。"
+          ]
+        }
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q-01",
+      "type": "single",
+      "pointIds": [
+        "k-voltage"
+      ],
+      "prompt": "A 点相对地为 8 V，B 点相对地为 3 V，\\(U_{AB}\\) 为多少？",
+      "answer": [
+        "B"
+      ],
+      "explanation": "\\(U_{AB}=V_A-V_B=(8-3)\\,\\mathrm{V}=5\\,\\mathrm{V}\\)。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "\\(11\\,\\mathrm{V}\\)"
+        },
+        {
+          "id": "B",
+          "text": "\\(5\\,\\mathrm{V}\\)"
+        },
+        {
+          "id": "C",
+          "text": "\\(-5\\,\\mathrm{V}\\)"
+        },
+        {
+          "id": "D",
+          "text": "\\(3\\,\\mathrm{V}\\)"
+        }
+      ]
+    },
+    {
+      "id": "q-02",
+      "type": "true_false",
+      "pointIds": [
+        "k-voltage"
+      ],
+      "prompt": "只要两个端点之间有电压，就一定有持续电流流过。",
+      "answer": [
+        "B"
+      ],
+      "explanation": "理想开路可以有电压，但没有电流；电流还取决于是否存在通路。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "正确"
+        },
+        {
+          "id": "B",
+          "text": "错误"
+        }
+      ]
+    },
+    {
+      "id": "q-03",
+      "type": "single",
+      "pointIds": [
+        "k-current"
+      ],
+      "prompt": "4 秒内通过某截面的净电荷为 8 C，平均电流是多少？",
+      "answer": [
+        "B"
+      ],
+      "explanation": "平均电流 \\(I=\\frac{\\Delta Q}{\\Delta t}=\\frac{8}{4}\\,\\mathrm{A}=2\\,\\mathrm{A}\\)。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "\\(0.5\\,\\mathrm{A}\\)"
+        },
+        {
+          "id": "B",
+          "text": "\\(2\\,\\mathrm{A}\\)"
+        },
+        {
+          "id": "C",
+          "text": "\\(4\\,\\mathrm{A}\\)"
+        },
+        {
+          "id": "D",
+          "text": "\\(32\\,\\mathrm{A}\\)"
+        }
+      ]
+    },
+    {
+      "id": "q-04",
+      "type": "multiple",
+      "pointIds": [
+        "k-current",
+        "k-voltage"
+      ],
+      "prompt": "下列说法哪些正确？",
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ],
+      "explanation": "A、B 是单位定义；金属中电子的平均定向运动方向与约定电流相反；参考方向可预先选择。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "电流单位是安培。"
+        },
+        {
+          "id": "B",
+          "text": "电压单位是伏特。"
+        },
+        {
+          "id": "C",
+          "text": "金属中电子定向运动方向与约定电流方向始终相同。"
+        },
+        {
+          "id": "D",
+          "text": "求得电流为负，可能只是实际方向与参考方向相反。"
+        }
+      ]
+    },
+    {
+      "id": "q-05",
+      "type": "single",
+      "pointIds": [
+        "k-ohm"
+      ],
+      "prompt": "3 kΩ 理想线性电阻两端为 9 V，流过它的电流为多少？",
+      "answer": [
+        "C"
+      ],
+      "explanation": "\\(I=\\frac{9}{3000}\\,\\mathrm{A}=0.003\\,\\mathrm{A}=3\\,\\mathrm{mA}\\)。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "\\(3\\,\\mathrm{A}\\)"
+        },
+        {
+          "id": "B",
+          "text": "\\(27\\,\\mathrm{mA}\\)"
+        },
+        {
+          "id": "C",
+          "text": "\\(3\\,\\mathrm{mA}\\)"
+        },
+        {
+          "id": "D",
+          "text": "\\(0.333\\,\\mathrm{mA}\\)"
+        }
+      ]
+    },
+    {
+      "id": "q-06",
+      "type": "short",
+      "pointIds": [
+        "k-ohm"
+      ],
+      "prompt": "为什么不能把 \\(U=IR\\) 中的 R 视为所有器件在所有工作条件下都不变的常数？",
+      "answer": "固定 R 的欧姆定律针对理想线性电阻模型。非线性器件的电压与电流关系通常不是固定比例；实际元件参数还会受温度等条件影响。",
+      "explanation": "先说明适用模型，再指出非线性或温度影响等例外。",
+      "difficulty": 2,
+      "rubric": [
+        "指出固定阻值形式适用于线性电阻模型。",
+        "指出二极管等非线性器件或温度变化会使固定比例假设不适用。"
+      ]
+    },
+    {
+      "id": "q-07",
+      "type": "single",
+      "pointIds": [
+        "k-power"
+      ],
+      "prompt": "一个电阻两端电压为 10 V，电流为 20 mA，吸收功率为多少？",
+      "answer": [
+        "A"
+      ],
+      "explanation": "\\(20\\,\\mathrm{mA}=0.02\\,\\mathrm{A}\\)，\\(P=UI=(10\\times0.02)\\,\\mathrm{W}=0.2\\,\\mathrm{W}\\)。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "\\(0.2\\,\\mathrm{W}\\)"
+        },
+        {
+          "id": "B",
+          "text": "\\(2\\,\\mathrm{W}\\)"
+        },
+        {
+          "id": "C",
+          "text": "\\(200\\,\\mathrm{W}\\)"
+        },
+        {
+          "id": "D",
+          "text": "\\(0.002\\,\\mathrm{W}\\)"
+        }
+      ]
+    },
+    {
+      "id": "q-08",
+      "type": "true_false",
+      "pointIds": [
+        "k-power"
+      ],
+      "prompt": "在功率恒定时，运行时间加倍，转换的总能量也加倍。",
+      "answer": [
+        "A"
+      ],
+      "explanation": "恒定功率下 \\(E=Pt\\)，因此能量与时间成正比。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "正确"
+        },
+        {
+          "id": "B",
+          "text": "错误"
+        }
+      ]
+    },
+    {
+      "id": "q-09",
+      "type": "single",
+      "pointIds": [
+        "k-series"
+      ],
+      "prompt": "2 kΩ 与 4 kΩ 电阻直接串联在 12 V 理想电源上，中间无分支，电流是多少？",
+      "answer": [
+        "B"
+      ],
+      "explanation": "总电阻为 6 kΩ，\\(I=\\frac{12}{6000}\\,\\mathrm{A}=2\\,\\mathrm{mA}\\)。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "\\(1\\,\\mathrm{mA}\\)"
+        },
+        {
+          "id": "B",
+          "text": "\\(2\\,\\mathrm{mA}\\)"
+        },
+        {
+          "id": "C",
+          "text": "\\(3\\,\\mathrm{mA}\\)"
+        },
+        {
+          "id": "D",
+          "text": "\\(6\\,\\mathrm{mA}\\)"
+        }
+      ]
+    },
+    {
+      "id": "q-10",
+      "type": "multiple",
+      "pointIds": [
+        "k-series"
+      ],
+      "prompt": "对中间无分支的两个理想串联电阻，哪些说法正确？",
+      "answer": [
+        "A",
+        "C",
+        "D"
+      ],
+      "explanation": "串联同流，电阻相加；\\(U_i=IR_i\\)，因此阻值越大电压降越大。只有阻值相同才等分电压。",
+      "difficulty": 2,
+      "options": [
+        {
+          "id": "A",
+          "text": "流过两电阻的电流相同。"
+        },
+        {
+          "id": "B",
+          "text": "两电阻的电压总是相同。"
+        },
+        {
+          "id": "C",
+          "text": "总电阻为两电阻之和。"
+        },
+        {
+          "id": "D",
+          "text": "阻值较大的电阻具有较大的电压降。"
+        }
+      ]
+    },
+    {
+      "id": "q-11",
+      "type": "single",
+      "pointIds": [
+        "k-divider"
+      ],
+      "prompt": "输入 10 V，上端 \\(R_1=4\\,\\mathrm{k}\\Omega\\)，下端 \\(R_2=1\\,\\mathrm{k}\\Omega\\)，输出取自 \\(R_2\\) 两端且无负载，输出是多少？",
+      "answer": [
+        "D"
+      ],
+      "explanation": "\\(U_{\\mathrm{out}}=10\\times\\frac{1}{4+1}\\,\\mathrm{V}=2\\,\\mathrm{V}\\)。注意分子是下端电阻 \\(R_2\\)。",
+      "difficulty": 1,
+      "options": [
+        {
+          "id": "A",
+          "text": "\\(8\\,\\mathrm{V}\\)"
+        },
+        {
+          "id": "B",
+          "text": "\\(5\\,\\mathrm{V}\\)"
+        },
+        {
+          "id": "C",
+          "text": "\\(2.5\\,\\mathrm{V}\\)"
+        },
+        {
+          "id": "D",
+          "text": "\\(2\\,\\mathrm{V}\\)"
+        }
+      ]
+    },
+    {
+      "id": "q-12",
+      "type": "short",
+      "pointIds": [
+        "k-divider",
+        "k-series"
+      ],
+      "prompt": "在电阻分压输出端与地之间接入负载电阻后，为什么输出可能比无负载时更低？",
+      "answer": "负载电阻与下端电阻并联，使下端等效电阻减小；在理想输入电压源条件下，重新分压得到的输出电压降低。",
+      "explanation": "说明并联改变了下端等效电阻，然后把变化与分压比例联系起来。",
+      "difficulty": 2,
+      "rubric": [
+        "指出负载与下端电阻并联。",
+        "指出下端等效电阻减小。",
+        "在理想输入电压源条件下，分压比例减小，输出电压下降。"
+      ]
+    }
+  ],
+  "mathFormat": "latex"
+}
